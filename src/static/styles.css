@@ -159,14 +159,28 @@ footer {
 }
 
 .participants-list {
-  list-style-type: disc;
-  margin-left: 20px;
+  list-style-type: none;
+  margin-left: 0;
   margin-bottom: 0;
   padding-left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .participant-item {
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+.delete-participant {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #e53935;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.delete-participant:hover {
+  color: #b71c1c;
 }
 
 .participant-email {

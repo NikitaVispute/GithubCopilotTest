@@ -1,3 +1,13 @@
+from pydantic import BaseModel
+
+# Request model for unregister
+
+"""
+High School Management System API
+
+A super simple FastAPI application that allows students to view and sign up
+for extracurricular activities at Mergington High School.
+"""
 """
 High School Management System API
 
@@ -80,6 +90,23 @@ activities = {
     }
 }
 
+class UnregisterRequest(BaseModel):
+    activity: str
+    email: str
+
+@app.post("/unregister")
+def unregister_participant(req: UnregisterRequest):
+    activity_name = req.activity
+    email = req.email
+    if activity_name not in activities:
+        raise HTTPException(status_code=404, detail="Activity not found")
+    activity = activities[activity_name]
+    if email not in activity["participants"]:
+        return {"error": "Participant not found in activity"}
+    activity["participants"].remove(email)
+    return {"success": True, "message": f"Unregistered {email} from {activity_name}"}
+    activity["participants"].remove(email)
+    return {"success": True, "message": f"Unregistered {email} from {activity_name}"}
 
 @app.get("/")
 def root():
